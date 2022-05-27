@@ -2,7 +2,6 @@ package com.test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,10 +10,6 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.After;
@@ -31,7 +26,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public  class MobilePurchase {
+public class TvPurchase {
 	static  WebDriver driver ;
 
 
@@ -71,7 +66,7 @@ System.out.println(endtime-startime);
 	public void method2(){
 		
 		WebElement search=driver.findElement(By.name("q"));
-		search.sendKeys("realme");	
+		search.sendKeys("lg tv");	
 		
 	}
 	static String name;
@@ -82,12 +77,12 @@ System.out.println(endtime-startime);
 		searchclk.click();
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
-		WebElement excelname=driver.findElement(By.xpath("(//div[contains(text(),'realme')])[1]"));
+		WebElement excelname=driver.findElement(By.xpath("//div[text()='LG 80 cm (32 inch) HD Ready LED Smart TV']"));
 String name=excelname.getText();
 		File f=new File("D:\\java code\\Flipkart.junit\\file\\realme.xlsx");
 		FileInputStream f1=new FileInputStream(f);
 		XSSFWorkbook w =new XSSFWorkbook(f1);
-		XSSFSheet s=w.getSheet("mobile");
+		XSSFSheet s=w.getSheet("sheet2");
 		s.getRow(0).createCell(1).setCellValue(name);
 		 FileOutputStream fs=new FileOutputStream(f);
 		 w.write(fs);
@@ -98,9 +93,9 @@ String name=excelname.getText();
 	public void method4() throws IOException {
 		
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
-		WebElement realmeclick=driver.findElement(By.xpath("(//div[contains(text(),'realme')])[1]"));
-		realmeclick.click();
-		String name1=realmeclick.getText();
+		WebElement tvclick=driver.findElement(By.xpath("//div[text()='LG 80 cm (32 inch) HD Ready LED Smart TV']"));
+		tvclick.click();
+		String name1=tvclick.getText();
 		Set<String> allwin=((WebDriver) driver).getWindowHandles();
 		List<String> l=new ArrayList<String>();
 			l.addAll(allwin);
@@ -108,33 +103,36 @@ String name=excelname.getText();
 			File f=new File("D:\\java code\\Flipkart.junit\\file\\realme.xlsx");
 			FileInputStream f1=new FileInputStream(f);
 			XSSFWorkbook w =new XSSFWorkbook(f1);
-			XSSFSheet s=w.getSheet("mobile");
+			XSSFSheet s=w.getSheet("sheet2");
 			String data=s.getRow(0).getCell(1).getStringCellValue();
-	f1.close();
 	Assert.assertEquals(data,name1);
+	f1.close();
+
 	}
 @Test
 public void method5() throws IOException {
 	TakesScreenshot t=(TakesScreenshot)driver;
 	File source=t.getScreenshotAs(OutputType.FILE);
-	File target=new File("D:\\java code\\Flipkart.junit\\screenshot\\flipkart.png");
+	File target=new File("D:\\java code\\Flipkart.junit\\screenshot\\tv.png");
 	FileUtils.copyFile(source, target);
 	WebElement down=driver.findElement(By.xpath("//div[text()='Highlights']"));
 	JavascriptExecutor j=(JavascriptExecutor)driver;
 	j.executeScript("arguments[0].scrollIntoView(true)",down);
 	File source1=t.getScreenshotAs(OutputType.FILE);
-	File target1=new File("D:\\java code\\Flipkart.junit\\screenshot\\flipkart2.png");
+	File target1=new File("D:\\java code\\Flipkart.junit\\screenshot\\tv2highlight.png");
 	FileUtils.copyFile(source1, target1);
 }
+}
+	
+	
+	
+	
+	
+	
+	
+	
 		
-	}
 	
-	
-	
-	
-	
-	
-	
-		
-	
+
+
 
